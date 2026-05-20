@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Smart Parking Availability Predictor</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: #f5f7fa;
+  color: #1a1a1a;
+}
+
+/* NAVBAR */
+header {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 60px;
+  background: white;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+header h2 {
+  margin: 0;
+  font-weight: 700;
+  color: #2563eb;
+}
+
+/* MAIN SECTION */
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;   /* center instead of space-between */
+  gap: 60px;                 /* control spacing manually */
+  padding: 60px 40px;
+}
+
+/* LEFT */
+.left {
+  max-width: 550px;
+}
+
+.badge {
+  background: #e0e7ff;
+  color: #2563eb;
+  padding: 8px 15px;
+  border-radius: 20px;
+  font-size: 14px;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+.left h1 {
+  font-size: 55px;
+  margin: 0;
+  font-weight: 700;
+}
+
+.left p {
+  margin-top: 20px;
+  font-size: 18px;
+  color: #555;
+}
+
+/* BUTTONS */
+.btns {
+  margin-top: 30px;
+}
+
+button {
+  padding: 14px 28px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  margin-right: 15px;
+  transition: 0.3s;
+}
+
+.primary {
+  background: #2563eb;
+  color: white;
+}
+
+.primary:hover {
+  background: #1d4ed8;
+  transform: translateY(-2px);
+}
+
+.secondary {
+  background: transparent;
+  border: 1px solid #ccc;
+}
+
+.secondary:hover {
+  background: #f1f1f1;
+}
+
+/* FEATURES */
+.features {
+  margin-top: 25px;
+  font-size: 14px;
+  color: #555;
+}
+
+.features span {
+  margin-right: 20px;
+}
+
+/* RIGHT IMAGE */
+.right img {
+  width: 350px;   /* reduced from 420 */
+  border-radius: 20px;
+}
+/* BIG HERO */
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 100px;
+  padding: 100px 60px;
+}
+
+.left h1 {
+  font-size: 70px;   /* BIGGER */
+  line-height: 1.2;
+}
+
+.left p {
+  font-size: 20px;
+  margin-top: 20px;
+}
+
+/* IMAGE */
+.right img {
+  width: 500px;  /* bigger */
+  border-radius: 25px;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.2);
+}
+
+/* FEATURES */
+.features-section {
+  padding: 80px;
+  text-align: center;
+  margin-top: -59px;
+}
+
+.features-section h2 {
+  font-size: 40px;
+  margin-bottom: 40px;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+}
+
+.feature-card {
+  padding: 30px;
+  border-radius: 20px;
+  background: white;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  transition: 0.3s;
+}
+
+.feature-card:hover {
+  transform: translateY(-10px);
+}
+
+.feature-card h3 {
+  margin-top: 10px;
+}
+
+.feature-card p {
+  font-size: 14px;
+  color: #555;
+}
+
+/* STATS */
+.stats {
+  display: flex;
+  justify-content: center;
+  gap: 80px;
+  padding: 60px;
+  background: #eef2ff;
+}
+
+.stat-box {
+  text-align: center;
+}
+
+.stat-box h1 {
+  font-size: 40px;
+  color: #2563eb;
+}
+
+.stat-box p {
+  color: #555;
+}
+/* RESPONSIVE */
+@media(max-width:900px){
+  .container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .right img {
+    margin-top: 40px;
+    widt
+    .features {
+  margin-top: 25px;
+  font-size: 15px;
+  color: #444;
+}
+
+.features div {
+  margin-top: 8px;
+}h: 90%;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h2>🚗 Smart Parking Availability Predictor</h2>
+</header>
+
+<div class="container">
+
+  <!-- LEFT -->
+  <div class="left">
+
+    <div class="badge">⚡ Next-Gen Parking Technology</div>
+
+    <h1>Smart Parking System<br>for Modern Campuses</h1>
+
+    <p>
+      Monitor parking slots in real-time using sensors and smart prediction.
+      Reduce congestion and improve parking efficiency.
+    </p>
+
+    <div class="btns">
+      <button class="primary" onclick="goDashboard()">🚀 View Dashboard</button>
+    </div>
+
+  </div>
+
+  <!-- RIGHT -->
+  <div class="right">
+    <img src="parking2.png">
+  </div>
+
+</div>
+
+<!-- FEATURES SECTION -->
+<div class="features-section">
+
+  <h2>✨ Key Features</h2>
+
+  <div class="feature-grid">
+
+    <div class="feature-card">
+      🚗
+      <h3>Real-Time Monitoring</h3>
+      <p>Live parking slot updates using sensors</p>
+    </div>
+
+    <div class="feature-card">
+      🧠
+      <h3>Smart Suggestions</h3>
+      <p>Find nearest available parking slot instantly</p>
+    </div>
+
+    <div class="feature-card">
+      📡
+      <h3>Arduino Integration</h3>
+      <p>Hardware-based detection system</p>
+    </div>
+
+    <div class="feature-card">
+      ⚡
+      <h3>Fast Updates</h3>
+      <p>Instant UI updates without page reload</p>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- STATS SECTION -->
+<div class="stats">
+
+
+  <div class="stat-box">
+    <h1>Real-Time</h1>
+    <p>Data Updates</p>
+  </div>
+
+
+</div>
+<script>
+function goDashboard(){
+  window.location.href = "dashboard.html";
+}
+</script>
+
+</body>
+</html>

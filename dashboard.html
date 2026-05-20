@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Smart Parking Predictor</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+  color: white;
+}
+
+/* NAVBAR */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
+}
+
+header h2 {
+  margin: 0;
+}
+.top-status {
+  margin-bottom: 20px;
+  padding: 10px 20px;
+  background: rgba(0,0,0,0.5);
+  border-radius: 12px;
+  font-size: 16px;
+  color: #00ff9c;
+  display: inline-block;
+}
+
+.slots-container {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.slot-card {
+  width: 200px;
+  height: 220px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  transition: 0.4s;
+}
+
+.slot-title {
+  font-size: 18px;
+  margin-bottom: 10px;
+  opacity: 0.8;
+}
+
+.slot-status {
+  font-size: 20px;
+}
+
+.empty {
+  background: linear-gradient(135deg,#00c853,#64dd17);
+}
+
+.occupied {
+  background: linear-gradient(135deg,#ff1744,#ff5252);
+}
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  background: #00e5ff;
+  color: black;
+  font-weight: bold;
+}
+
+/* MAIN CARD */
+.card {
+  max-width: 700px;
+  margin: 60px auto;
+  padding: 40px;
+  text-align: center;
+  border-radius: 25px;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(15px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+}
+
+/* MAP */
+.map-container {
+  position: relative;
+  margin: 30px auto;
+  width: 300px;
+}
+
+.map {
+  width: 100%;
+  border-radius: 20px;
+  opacity: 0.9;
+}
+
+/* STATUS ON MAP */
+.status-box {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-weight: bold;
+  background: rgba(0,0,0,0.6);
+}
+
+.green { color: #00ff9c; }
+.red { color: #ff4d4d; }
+
+/* SLOT */
+.slot {
+  width: 220px;
+  height: 220px;
+  margin: 40px auto;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: bold;
+  transition: 0.4s;
+}
+.prediction-card {
+  max-width: 600px;
+  margin: 30px auto;
+  padding: 30px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.08);
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+.prediction-box p {
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+.prediction-box span {
+  color: #00e5ff;
+  font-weight: bold;
+}
+
+/* STATES */
+.empty {
+  background: linear-gradient(135deg,#00c853,#64dd17);
+  box-shadow: 0 0 30px rgba(0,255,0,0.4);
+}
+
+.occupied {
+  background: linear-gradient(135deg,#ff1744,#ff5252);
+  box-shadow: 0 0 30px rgba(255,0,0,0.4);
+}
+
+/* ICON */
+.icon {
+  font-size: 60px;
+  margin-top: 10px;
+}
+
+.ai-card {
+  max-width: 650px;
+  margin: 40px auto;
+  padding: 35px;
+  border-radius: 25px;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Glow animation */
+.ai-card::before {
+  content: "";
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(from 0deg, transparent, #00e5ff, transparent);
+  animation: rotate 8s linear infinite;
+  top: -50%;
+  left: -50%;
+  opacity: 0.15;
+}
+
+@keyframes rotate {
+  100% { transform: rotate(360deg); }
+}
+.ai-box {
+  margin-top: 30px;
+  padding: 20px;
+  border-radius: 15px;
+  background: rgba(0,0,0,0.3);
+  text-align: center;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+}
+
+.ai-box h3 {
+  margin-bottom: 10px;
+  color: #00e5ff;
+}
+
+.ai-box {
+  max-width: 420px;
+  margin: 20px auto;
+}
+.ai-card h2 {
+  margin-bottom: 25px;
+  font-size: 26px;
+  color: #fff;
+  z-index: 1;
+  position: relative;
+}
+
+/* GRID */
+.ai-grid {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  z-index: 1;
+  position: relative;
+}
+
+/* BOXES */
+.ai-box {
+  flex: 1;
+  padding: 20px;
+  border-radius: 15px;
+  background: rgba(0,0,0,0.4);
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.ai-box:hover {
+  transform: translateY(-8px) scale(1.05);
+  box-shadow: 0 10px 25px rgba(0,229,255,0.4);
+}
+
+/* TEXT */
+.ai-box p {
+  font-size: 14px;
+  opacity: 0.7;
+  margin-bottom: 8px;
+}
+
+.ai-box h3 {
+  font-size: 20px;
+  color: #00e5ff;
+}
+
+/* RESPONSIVE */
+@media(max-width:600px){
+  .ai-grid {
+    flex-direction: column;
+  }
+}
+
+
+/* COUNT */
+#count {
+  margin-top: 20px;
+  font-size: 20px;
+  padding: 10px 20px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 10px;
+}
+
+/* ANIMATION */
+.slot.animate {
+  transform: scale(1.1);
+}
+</style>
+
+</head>
+
+<body>
+
+<header>
+  <h2>🚗 Smart Parking Availability Predictor</h2>
+  <button onclick="location.href='index.html'">Home</button>
+</header>
+
+<div class="card">
+
+  <h1>Live Parking Status</h1>
+
+  <!-- MAP -->
+<div class="map-container">
+  <img id="parkingMap" src="parkingslotsempty.png" class="map">
+</div>
+
+  <!-- TOP STATUS -->
+  <div id="topStatus" class="top-status">
+    Slots Available: --
+  </div>
+
+  <!-- SLOTS -->
+  <div id="slotsContainer" class="slots-container"></div>
+
+</div>
+
+<div class="ai-box">
+  <h3>🤖 Smart AI Suggestion</h3>
+
+  <p id="nearestSlot">Nearest Slot: --</p>
+  <p id="parkingStatus">Parking Status: --</p>
+</div>
+
+<script>
+let prevData = null;
+let lastUpdateTime = 0;
+
+setInterval(() => {
+
+  fetch('./data.json?nocache=' + Date.now())
+    .then(res => res.json())
+    .then(data => {
+
+      const now = Date.now();
+
+      // ❌ if same data → ignore
+      if (JSON.stringify(data) === JSON.stringify(prevData)) {
+        return;
+      }
+
+      // ❌ if change too fast → ignore (ANTI-BLINK)
+      if (now - lastUpdateTime < 2000) {
+        return;
+      }
+
+      console.log("STABLE UPDATE:", data);
+
+      prevData = data;
+      lastUpdateTime = now;
+
+      // ================= UI UPDATE =================
+
+      let map = document.getElementById("parkingMap");
+      let container = document.getElementById("slotsContainer");
+
+      container.innerHTML = "";
+
+      function normalize(val){
+        if(val === "Empty" || val === 0 || val === "0") return "Empty";
+        return "Occupied";
+      }
+
+      let s1 = normalize(data.slot1);
+      let s2 = normalize(data.slot2);
+      let s3 = normalize(data.slot3);
+
+      let available = [s1, s2, s3].filter(s => s === "Empty").length;
+
+      // IMAGE
+      if(s1==="Empty" && s2==="Empty" && s3==="Empty"){
+        map.src="parkingslotsempty.png";
+      }
+      else if(s1==="Occupied" && s2==="Occupied" && s3==="Occupied"){
+        map.src="parkingslotsfull.png";
+      }
+      else if(s1==="Occupied" && s2==="Occupied"){
+        map.src="parkingslot1and2.png";
+      }
+      else if(s1==="Occupied" && s3==="Occupied"){
+        map.src="parkingslot1and3.png";
+      }
+      else if(s2==="Occupied" && s3==="Occupied"){
+        map.src="parkingslot2and3.png";
+      }
+      else if(s1==="Occupied"){
+        map.src="parkingslot1.png";
+      }
+      else if(s2==="Occupied"){
+        map.src="parkingslot2.png";
+      }
+      else if(s3==="Occupied"){
+        map.src="parkingslot3.png";
+      }
+
+      // CARDS
+      [s1,s2,s3].forEach((status,i)=>{
+        let d=document.createElement("div");
+        d.className="slot-card "+(status==="Empty"?"empty":"occupied");
+        d.innerHTML=`
+          <div class="slot-title">Slot ${i+1}</div>
+          <div class="slot-status">${status==="Empty"?"EMPTY":"FULL"}</div>
+          <div style="font-size:40px;margin-top:10px;">
+            ${status==="Empty"?"🅿️":"🚗"}
+          </div>`;
+        container.appendChild(d);
+      });
+
+      document.getElementById("topStatus").innerText =
+        "Slots Available: " + available;
+        // =========================
+// 🤖 SMART SUGGESTION FIX
+// =========================
+
+let nearest = "No Slot Available";
+
+if (s1 === "Empty") nearest = "Slot 1";
+else if (s2 === "Empty") nearest = "Slot 2";
+else if (s3 === "Empty") nearest = "Slot 3";
+
+let parkingStatus = "";
+
+if (available === 0) {
+  parkingStatus = "Full ❌";
+}
+else if (available === 1) {
+  parkingStatus = "Low Availability ⚠️";
+}
+else {
+  parkingStatus = "Slots Available ✅";
+}
+
+// 🔥 UPDATE UI
+document.getElementById("nearestSlot").innerText =
+  "Nearest Slot: " + nearest;
+
+document.getElementById("parkingStatus").innerText =
+  "Parking Status: " + parkingStatus;
+
+    });
+
+}, 1000);
+</script>
+</body>
+</html>
